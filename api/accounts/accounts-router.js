@@ -11,7 +11,11 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+  Accounts.getById(req.params.id)
+    .then (account => {
+      res.status(200).json(account)
+    })
+    .catch(next)
 })
 
 router.post('/', (req, res, next) => {
