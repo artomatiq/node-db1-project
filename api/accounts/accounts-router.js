@@ -19,7 +19,11 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  // DO YOUR MAGIC
+  Accounts.create(req.body)
+    .then (newAccount => {
+      res.status(201).json(newAccount)
+    })
+    .catch(next)
 })
 
 router.put('/:id', (req, res, next) => {
