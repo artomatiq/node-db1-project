@@ -27,7 +27,11 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+  Accounts.updateById(req.params.id, req.body)
+    .then (updatedAccount => {
+      res.status(200).json(typeof updatedAccount)
+    })
+    .catch(next)
 });
 
 router.delete('/:id', (req, res, next) => {
