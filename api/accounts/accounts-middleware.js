@@ -29,7 +29,18 @@ exports.checkAccountPayload = (req, res, next) => {
 exports.checkAccountNameUnique = async (req, res, next) => {
   const {name} = req.body
 
-  if (getById(req.params.id).name )
+  try {
+    const existing  = await db('accounts')
+      .where('name', name.trim())
+      .first()
+    
+    if (existing) {
+      next({status: 400, message: 'entry with given name already exists'})
+    }
+  }
+  catch (error) {
+    next(error)
+  }
 
 }
 
