@@ -1,3 +1,6 @@
+const db = require('../../data/db-config')
+const { getById } = require('./accounts-model')
+
 exports.checkAccountPayload = (req, res, next) => {
   const {name, budget} = req.body
   const error = {status:400}
@@ -23,10 +26,22 @@ exports.checkAccountPayload = (req, res, next) => {
   else next()
 }
 
-exports.checkAccountNameUnique = (req, res, next) => {
-  // DO YOUR MAGIC
+exports.checkAccountNameUnique = async (req, res, next) => {
+  const {name} = req.body
+
+  if (getById(req.params.id).name )
+
 }
 
-exports.checkAccountId = (req, res, next) => {
-  // DO YOUR MAGIC
+exports.checkAccountId = async (req, res, next) => {
+  getById(req.params.id)
+    .then (exists => {
+      if (exists) {
+        next()
+      }
+      else {
+        next({status: 404, message: 'id not found in database'})
+      }
+    })
+    .catch (next)
 }
