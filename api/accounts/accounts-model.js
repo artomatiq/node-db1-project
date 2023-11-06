@@ -29,7 +29,10 @@ const updateById = async (id, changes) => {
 }
 
 const deleteById = async id => {
-  // DO YOUR MAGIC
+  const futureDel = getById(id)
+  await db('accounts')
+    .del('id', id)
+  return futureDel
 }
 
 module.exports = {
